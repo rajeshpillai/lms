@@ -4,11 +4,9 @@ import {Link} from 'react-router-dom'
 class ContactUs extends Component {
   render() {
     return (
-      <div className="container">
         <h2 className="pagehead">
           CONTACT US***
         </h2>
-      </div>
     );
   }
 }

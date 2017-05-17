@@ -1,21 +1,42 @@
 import React, { Component } from 'react';
+import {Route} from 'react-router-dom'
 import NavHeader from './common/NavHeader';
 import NavBar from './common/NavBar';
+import ChapterBar from './ChapterBar';
+import HelpBar from './HelpBar';
+import Home from './Home';
+import AboutUs from './AboutUs';
+import ContactUs from './ContactUs';
 
 class Layout extends Component {
   render() {
     return (
-      <div>
-         <nav className="navbar navbar-default navbar-static-top">
-           <div className="container">
-             <NavHeader />
-             <NavBar />
-           </div>
-         </nav>
-         <div className="container"> 
-            {this.props.children}
-         </div>
-      </div>
+       <div className="container-fluid">
+        
+       
+          <nav className="navbar navbar-default navbar-static-top">
+            <div className="container-fluid">
+              <NavHeader />
+              <NavBar />
+            </div>
+          </nav>
+          <div className="container-fluid"> 
+              <div className="row">
+                <div className="col-md-2">
+                  <ChapterBar />
+                </div>
+                <div className="col-md-8">
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/about" component={AboutUs} />
+                  <Route exact path="/contact" component={ContactUs} />
+                </div>
+                <div className="col-md-2">
+                  <HelpBar/>
+                </div>
+              </div>
+              
+          </div>
+        </div>
     );
   }
 }

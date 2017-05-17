@@ -4,11 +4,9 @@ import {Link} from 'react-router-dom'
 class AboutUs extends Component {
   render() {
     return (
-      <div className="container">
-        <h2 className="pagehead">
+        <h2>
           ABOUT LMS APP***
         </h2>
-      </div>
     );
   }
 }

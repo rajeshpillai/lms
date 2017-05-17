@@ -6,8 +6,8 @@ var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
     entry: [
-        'webpack-dev-server/client?http://localhost:9000', // enables websocket connection
-        'webpack/hot/dev-server', // to perform HMR in the browser
+        // 'webpack-dev-server/client?http://localhost:9000', // enables websocket connection
+        // 'webpack/hot/dev-server', // to perform HMR in the browser
         APP_DIR + '/index.js',
         
     ],
