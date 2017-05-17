@@ -12,9 +12,7 @@ class Layout extends Component {
   render() {
     return (
        <div className="container-fluid">
-        
-       
-          <nav className="navbar navbar-default navbar-static-top">
+          <nav className="navbar navbar-default navbar-fixed-top">
             <div className="container-fluid">
               <NavHeader />
               <NavBar />

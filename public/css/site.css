@@ -1,7 +1,4 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  min-height: 2000px;
-}
-
-.navbar-static-top {
-  margin-bottom: 19px;
+  padding-top: 50px;
 }

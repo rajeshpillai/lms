@@ -12,8 +12,8 @@ class NavBar extends Component {
          
         </ul>
         <ul className="nav navbar-nav navbar-right">
-          <li className="active"><a href="./">Static top <span className="sr-only">(current)</span></a></li>
-          <li><a href="#">Fixed top</a></li>
+          <li><a href="./"><span className="glyphicon glyphicon-bell"></span></a></li>
+          <li><a href="#"><span className="glyphicon glyphicon-search"></span></a></li>
            <li className="dropdown">
             <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               PROFILE <span className="caret"></span></a>
