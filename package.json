@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "run:dev": "npm start & webpack -d --watch",
     "startw": "webpack-dev-server --hot",
     "start": "npm run build && nodemon server/index.js",
     "build": "webpack -p",
