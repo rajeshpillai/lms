@@ -17,7 +17,11 @@ var config = {
             {test: /\.jsx?/, include: APP_DIR, loader: 'babel-loader'}
         ]
     },
-    plugins: [],
+    plugins: [
+        new webpack.HotModuleReplacementPlugin({
+            multistep: true
+        })
+    ],
     devServer: {
         contentBase: BUILD_DIR,
         port:3000

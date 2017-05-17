@@ -6,4 +6,4 @@ yarn-error.log*
 .env
 .DS_Store
 /build
-
+*hot-update*

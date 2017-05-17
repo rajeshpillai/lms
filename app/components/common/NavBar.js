@@ -20,7 +20,7 @@ class NavBar extends Component {
         <ul className="nav navbar-nav navbar-right">
           <li><a href="../navbar/">Default</a></li>
           <li className="active"><a href="./">Static top <span className="sr-only">(current)</span></a></li>
-          <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+          <li><a href="#">Fixed top</a></li>
         </ul>
       </div>
     );

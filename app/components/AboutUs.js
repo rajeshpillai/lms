@@ -6,7 +6,7 @@ class AboutUs extends Component {
     return (
       <div className="container">
         <h2 className="pagehead">
-          ABOUT APP
+          ABOUT LMS APP
         </h2>
       </div>
     );
