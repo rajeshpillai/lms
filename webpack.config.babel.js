@@ -8,15 +8,16 @@ var config = {
     entry: APP_DIR + '/index.js',
     output: {
         path: BUILD_DIR,
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        sourceMapFilename: "bundle.map"
     },
+    devtool: '#source-map',
     module: {
-        loaders: [{
-            test: /\.jsx?/,
-            include: APP_DIR,
-            loader: 'babel-loader'
-        }]
+        loaders: [
+            {test: /\.jsx?/, include: APP_DIR, loader: 'babel-loader'}
+        ]
     },
+    plugins: [],
     devServer: {
         contentBase: BUILD_DIR,
         port:3000
