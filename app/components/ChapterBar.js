@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 class ChapterBar extends Component {
+  constructor(props){
+    super(props);
+  }
   render() {
     return (
       <div>
@@ -8,5 +11,4 @@ class ChapterBar extends Component {
     );
   }
 }
-
 export default ChapterBar;

@@ -6,7 +6,7 @@ class NavBar extends Component {
     return (
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
-          <li className="active"><NavLink to="/home">Home</NavLink></li>
+          <li className="active"><NavLink to="/">Home</NavLink></li>
           <li><NavLink to="/about">About</NavLink></li>
           <li><NavLink activeClassName="active" to="/contact">Contact</NavLink></li>
          
