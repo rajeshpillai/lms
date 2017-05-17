@@ -33,7 +33,7 @@ class Home extends Component {
     var featured = this.state.featured.map(function (course) {
         return( 
         <div className="col-md-4" key={course.id}>
-           <h2><NavLink to={`/course/{course.slug}`}>{course.title}</NavLink></h2>
+           <h2><NavLink to={`/course/${course.slug}`}>{course.title}</NavLink></h2>
            <div>{course.desc}</div>
            <img src={course.cover_image} alt="cover image"/>
         </div>
