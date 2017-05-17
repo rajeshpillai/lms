@@ -5,11 +5,18 @@ var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'app');
 
 var config = {
-    entry: APP_DIR + '/index.js',
+    entry: [
+        'webpack-dev-server/client?http://localhost:9000', // enables websocket connection
+        'webpack/hot/dev-server', // to perform HMR in the browser
+        APP_DIR + '/index.js',
+        
+    ],
     output: {
-        path: BUILD_DIR,
+        path: BUILD_DIR + '/static',
+        pathinfo:true,
         filename: 'bundle.js',
-        sourceMapFilename: "bundle.map"
+        sourceMapFilename: "bundle.map",
+        publicPath:  BUILD_DIR
     },
     devtool: '#source-map',
     module: {
@@ -24,6 +31,7 @@ var config = {
     ],
     devServer: {
         contentBase: BUILD_DIR,
+        hot: true,
         port:3000
     },
 };

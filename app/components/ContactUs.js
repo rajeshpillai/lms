@@ -6,7 +6,7 @@ class ContactUs extends Component {
     return (
       <div className="container">
         <h2 className="pagehead">
-          CONTACT US
+          CONTACT US***
         </h2>
       </div>
     );

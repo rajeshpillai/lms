@@ -6,7 +6,7 @@ class NavBar extends Component {
     return (
       <div id="navbar" className="navbar-collapse collapse">
         <ul className="nav navbar-nav">
-          <li className="active"><Link to="#">Home</Link></li>
+          <li className="active"><Link to="/home">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           <li className="dropdown">
