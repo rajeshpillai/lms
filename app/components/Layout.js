@@ -8,6 +8,7 @@ import Home from './Home';
 import AboutUs from './AboutUs';
 import ContactUs from './ContactUs';
 import CourseSummary from './CourseSummary';
+import ChapterView from './ChapterView';
 
 class Layout extends Component {
   render() {
@@ -29,7 +30,7 @@ class Layout extends Component {
                   <Route exact path="/about" component={AboutUs} />
                   <Route exact path="/contact" component={ContactUs} />
                   <Route exact path="/:course_id" component={CourseSummary} />
-                  
+                  <Route exact path="/:course_id/:chapter_id" component={ChapterView} />
                 </div>
                 <div className="col-md-2">
                   <HelpBar/>

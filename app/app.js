@@ -6,6 +6,9 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 
 export default class App extends Component {
+  componentWillMount() {
+  }
+
   render() {
     return (
       <div>
