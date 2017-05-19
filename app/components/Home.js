@@ -1,30 +1,55 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
 
-import {store, featuredCourse} from '../reducers/reducers';
+import  {store,  fetchFeaturedCourse} from '../reducers/reducers';
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    console.log("ROOT: ", store);
+    
+    this.state ={
+      featuredCourse: {
+        featuredCourse: []
+      }
+    };
+   
+    this._isMounted = true;
+  }
 
-    store.dispatch(featuredCourse());
-    this.state = store.getState();
+  componentDidMount() {
+    var self = this;
+    fetchFeaturedCourse();
+    
+    store.subscribe(function () {
+        console.log("STATE: ", store.getState());
+        self.setState(function (prevState, props) {
+          return {featuredCourse: store.getState().featuredCourse}
+        });
+    });
+  }
 
-    console.log("FEATURED: ", this.featured);
+
+  componentWillUnMount() {
+    this._isMounted = false;
   }
   render() {
-    var featured = this.state.home.map(function (course) {
+    console.log("RENDER: ", this.state);
+    if (!this.state.featuredCourse.featuredCourse) {
+      return <h3>Loading</h3>
+    }
+    var featured = this.state.featuredCourse.featuredCourse.map(function (course) {
         return( 
         <div className="col-md-4" key={course.id}>
+          <div className="thumbnail">
            <h2><NavLink to={`/${course.slug}`}>{course.title}</NavLink></h2>
            <div>{course.desc}</div>
            <img src={course.cover_image} alt="cover image"/>
+           </div>
         </div>
         )
     });
     return (
-      <div>
+      <div className="row">
         {featured}
       </div>
     );

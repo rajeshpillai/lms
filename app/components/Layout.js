@@ -25,7 +25,7 @@ class Layout extends Component {
                 <div className="col-md-2">
                   <ChapterBar />
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-8 ">
                   <Route exact path="/" component={Home} />
                   <Route exact path="/about" component={AboutUs} />
                   <Route exact path="/contact" component={ContactUs} />
