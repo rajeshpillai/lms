@@ -7,7 +7,7 @@ import  {store,  fetchFeaturedCourse} from '../reducers/reducers';
 class Home extends Component {
   constructor(props) {
     super(props);
-    
+    console.log("HOME:ctor =>");
     this.state ={
       featuredCourse: {
         featuredCourse: [],
@@ -17,22 +17,28 @@ class Home extends Component {
     };
    
     this._isMounted = true;
-  }
 
-  componentDidMount() {
+    console.log("HOME =>");
     var self = this;
     fetchFeaturedCourse();
-    
     store.subscribe(function () {
         console.log("STATE: ", store.getState());
+        var s = store.getState();
+        self.data = { featuredCourse: store.getState().featuredCourse};
+
         self.setState(function (prevState, props) {
-          return {featuredCourse: store.getState().featuredCourse}
+          return store.getState().featuredCourse;
         });
     });
   }
 
-
+  componentDidMount() {
+    
+    
+  }
+  
   componentWillUnMount() {
+     console.log("HOME:componentWillUnMount =>");
     this._isMounted = false;
   }
   render() {
@@ -40,7 +46,7 @@ class Home extends Component {
     if (this.state.featuredCourse.isFetching) {
       return <h3>Loading</h3>
     }
-    var featured = this.state.featuredCourse.featuredCourse.map(function (course) {
+    var featured = this.state.featuredCourse.map(function (course) {
         return( 
         <div className="col-md-4" key={course.id}>
           <div className="thumbnail">
