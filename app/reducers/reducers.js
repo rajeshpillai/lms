@@ -34,6 +34,14 @@ var homeReducer = (state = featuredState, action) => {
     }
 };
 
+// featured action generator
+var featuredCourse = () => {
+    return {
+        type: "FEATURED_COURSE"
+    }
+};
+
+
 var reducers = combineReducers({
     home: homeReducer
 });
@@ -42,4 +50,4 @@ var store = createStore(reducers, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
-export default store;
+export  {store,  featuredCourse};
