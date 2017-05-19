@@ -3,14 +3,17 @@ import {NavLink} from 'react-router-dom'
 
 import  {store,  fetchFeaturedCourse} from '../reducers/reducers';
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
     
     this.state ={
       featuredCourse: {
-        featuredCourse: []
-      }
+        featuredCourse: [],
+        isFetching: true
+      },
+     
     };
    
     this._isMounted = true;
@@ -34,7 +37,7 @@ class Home extends Component {
   }
   render() {
     console.log("RENDER: ", this.state);
-    if (!this.state.featuredCourse.featuredCourse) {
+    if (this.state.featuredCourse.isFetching) {
       return <h3>Loading</h3>
     }
     var featured = this.state.featuredCourse.featuredCourse.map(function (course) {

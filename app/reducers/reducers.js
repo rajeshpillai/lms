@@ -1,4 +1,5 @@
-import {createStore, combineReducers, compose} from 'redux'
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
+import thunk from 'redux-thunk';
 
 var featuredState = [
     {
@@ -47,6 +48,7 @@ var startFeaturedCourseFetch = () => {
     return {
         type: 'START_FEATURE_COURSE_FETCH',
         featuredCourse: [],
+        isFetching: true
     };
 };
 
@@ -63,14 +65,7 @@ var fetchFeaturedCourse = () => {
     setTimeout(function () {
         console.log("completeFeaturedCourseFetch =>", featuredState)
         store.dispatch(completeFeaturedCourseFetch(featuredState));
-    }, 1000);
-};
-
-// featured action generator
-var featuredCourse = () => {
-    return {
-        type: "FEATURED_COURSE"
-    }
+    }, 3000);
 };
 
 
@@ -82,4 +77,4 @@ var store = createStore(reducers, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
 
-export {store,  featuredCourse, fetchFeaturedCourse};
+export {store, fetchFeaturedCourse};
