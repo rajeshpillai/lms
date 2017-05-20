@@ -62,10 +62,24 @@ var completeFeaturedCourseFetch = (course) => {
 var fetchFeaturedCourse = () => {
     console.log("fetchFeaturedCourse =>")
     store.dispatch(startFeaturedCourseFetch());
-    setTimeout(function () {
-        console.log("completeFeaturedCourseFetch =>", featuredState)
-        store.dispatch(completeFeaturedCourseFetch(featuredState));
-    }, 3000);
+
+    return dispatch => {
+        var clearTime = setTimeout(function () {
+            console.log("completeFeaturedCourseFetch =>", featuredState)
+            featuredState.push(
+                {
+                    id: featuredState.length+1,
+                    slug: "course-" + featuredState.length+1,
+                    title: "Course " + featuredState.length+1,
+                    desc: "A great course",
+                    cover_image: "http://lorempixel.com/400/200/nature/"
+                    }
+            );
+            store.dispatch(completeFeaturedCourseFetch(featuredState));
+            console.log("ClearTimeOut: ", clearTime);
+            clearTimeout(clearTime);
+        }, 3000);
+    }
 };
 
 
@@ -75,6 +89,6 @@ var reducers = combineReducers({
 
 var store = createStore(reducers, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
-));
+), applyMiddleware(thunk));
 
 export {store, fetchFeaturedCourse};

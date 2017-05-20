@@ -11,6 +11,14 @@ import CourseSummary from './CourseSummary';
 import ChapterView from './ChapterView';
 
 class Layout extends Component {
+  componentWillMount() {
+    console.log("Layout: componentWillMount:=>"); 
+  }
+
+  componentWillUnMount() {
+     console.log("Layout:componentWillUnMount =>");
+  }
+
   render() {
     return (
        <div className="container-fluid">

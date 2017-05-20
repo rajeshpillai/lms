@@ -13,7 +13,6 @@ export default class App extends Component {
     return (
       <div>
          <Route  component={Layout} path="/" />
-         
       </div>
     );
   }
