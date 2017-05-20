@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
-
-import  {store,  fetchFeaturedCourse} from '../reducers/reducers';
-
+import  {fetchFeaturedCourse} from '../reducers/reducers';
 import {connect} from 'react-redux';
 
 class Home extends Component {
@@ -16,40 +14,11 @@ class Home extends Component {
         isFetching: true
       },
     };
-
-     console.log("componentDidMount:=>"); 
-    
-    //store.dispatch(fetchFeaturedCourse());
-    console.log("PROPS: ", props);
     props.fetchFeaturedCourse();
-    //this.unsubscribe = store.subscribe(this.handlechange.bind(this)); 
-  }
-
-  componentDidMount() {
-   
-  }
-
-  handlechange() {
-    console.log("STATE CHANGED: ", store.getState());
-    this.forceUpdate();
-  }
-
-  componentWillMount() {
-    console.log("componentWillMount:=>"); 
-  }
-
-  componentWillUnMount() {
-     console.log("HOME:componentWillUnMount =>");
-     this.unsubscribe();
-  }
-
-  shouldComponentUpdate ( newProps, newState ) {
-    console.log("shouldComponentUpdate: newProps: ", newProps);
-    return true;
   }
 
   render() {
-    var state = store.getState().featuredCourse;
+    var state = this.props.featuredCourse;
     console.log("RENDER: ", state);
     if (state.isFetching) {
       return <h3>Loading</h3>
@@ -75,11 +44,9 @@ class Home extends Component {
 
 function mapStateToProps(state){
   return {
-      featuredCourse: {
         featuredCourse: state.featuredCourse,
         isFetching: state.isFetching
-      }
-  }
+    }
 }
 
 function mapDispatchToProps (dispatch) {
