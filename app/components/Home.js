@@ -3,6 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 import  {store,  fetchFeaturedCourse} from '../reducers/reducers';
 
+import {connect} from 'react-redux';
 
 class Home extends Component {
   constructor(props) {
@@ -15,12 +16,17 @@ class Home extends Component {
         isFetching: true
       },
     };
+
+     console.log("componentDidMount:=>"); 
+    
+    //store.dispatch(fetchFeaturedCourse());
+    console.log("PROPS: ", props);
+    props.fetchFeaturedCourse();
+    //this.unsubscribe = store.subscribe(this.handlechange.bind(this)); 
   }
 
   componentDidMount() {
-    console.log("componentDidMount:=>"); 
-    store.dispatch(fetchFeaturedCourse());
-    this.unsubscribe = store.subscribe(this.handlechange.bind(this)); 
+   
   }
 
   handlechange() {
@@ -66,4 +72,22 @@ class Home extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return {
+      featuredCourse: {
+        featuredCourse: state.featuredCourse,
+        isFetching: state.isFetching
+      }
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchFeaturedCourse: () => {
+      dispatch(fetchFeaturedCourse());
+    }
+  }
+}
+Home = connect(mapStateToProps, mapDispatchToProps)(Home);
 export default Home;
