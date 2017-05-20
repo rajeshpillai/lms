@@ -1,6 +1,7 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
 import {logger} from 'redux-logger';
 import promise from 'redux-promise-middleware';
+import axios from 'axios';
 
 var featuredState = [
     {
@@ -50,19 +51,26 @@ var fetchFeaturedCourse = () => {
     return {
         type: 'FETCH_FEATURED_COURSE',
         payload: new Promise((resolve, reject) => {
-            var clearTime = setTimeout(function () {
-                featuredState.push(
-                    {
-                        id: featuredState.length+1,
-                        slug: "course-" + featuredState.length+1,
-                        title: "Course " + featuredState.length+1,
-                        desc: "A great course",
-                        cover_image: "http://lorempixel.com/400/200/nature/"
-                        }
-                );
-                clearTimeout(clearTime);
-                resolve(featuredState);
-            }, 3000);  
+            axios.get("/course/featured")
+                .then(function (response) {
+                    resolve(response.data);
+                })
+                .catch(function (error) {
+
+                });
+            // var clearTime = setTimeout(function () {
+            //     featuredState.push(
+            //         {
+            //             id: featuredState.length+1,
+            //             slug: "course-" + featuredState.length+1,
+            //             title: "Course " + featuredState.length+1,
+            //             desc: "A great course",
+            //             cover_image: "http://lorempixel.com/400/200/nature/"
+            //             }
+            //     );
+            //     clearTimeout(clearTime);
+            //     resolve(featuredState);
+            // }, 3000);  
         })
     }
 };
