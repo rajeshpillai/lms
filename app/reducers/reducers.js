@@ -1,42 +1,43 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk';
+import {logger} from 'redux-logger';
+import promise from 'redux-promise-middleware';
 
 var featuredState = [
     {
-    id: 1,
-    slug: "course-1",
-    title: "Course 1",
-    desc: "A great course",
-    cover_image: "http://lorempixel.com/400/200/nature/"
+        id: 1,
+        slug: "course-1",
+        title: "Course 1",
+        desc: "A great course",
+        cover_image: "http://lorempixel.com/400/200/nature/"
     },
     {
-    id: 2,
-    slug: "course-2",
-    title: "Course 2",
-    desc: "A great course 2",
-    cover_image: "http://lorempixel.com/400/200/nature/"
+        id: 2,
+        slug: "course-2",
+        title: "Course 2",
+        desc: "A great course 2",
+        cover_image: "http://lorempixel.com/400/200/nature/"
     },
     {
         id: 3,
         slug: "course-3",
-    title: "Course 3",
-    desc: "A great course 3",
-    cover_image: "http://lorempixel.com/400/200/nature/"
+        title: "Course 3",
+        desc: "A great course 3",
+        cover_image: "http://lorempixel.com/400/200/nature/"
     }
 ];
 
 var homeReducerAsync = (state = {featuredCourse: [], isFetching: false}, action) => {
     console.log(`EXECUTING ${action.type}: `);
     switch(action.type) {
-        case 'START_FEATURE_COURSE_FETCH':
+        case 'FETCH_FEATURED_COURSE_PENDING':
             return {
                 isFetching: true,
                 featuredCourse: []
             };
-        case 'COMPLETE_FEATURE_COURSE_FETCH':
+        case 'FETCH_FEATURED_COURSE_FULFILLED':
             return {
                 isFetching: false,
-                featuredCourse: action.featuredCourse
+                featuredCourse: action.payload
             };
 
         default:
@@ -44,41 +45,25 @@ var homeReducerAsync = (state = {featuredCourse: [], isFetching: false}, action)
     }
 };
 
-var startFeaturedCourseFetch = () => {
-    return {
-        type: 'START_FEATURE_COURSE_FETCH',
-        featuredCourse: [],
-        isFetching: true
-    };
-};
-
-var completeFeaturedCourseFetch = (course) => {
-    return {
-        type: 'COMPLETE_FEATURE_COURSE_FETCH',
-        featuredCourse: course
-    };
-};
-
 var fetchFeaturedCourse = () => {
     console.log("fetchFeaturedCourse =>")
-    store.dispatch(startFeaturedCourseFetch());
-
-    return dispatch => {
-        var clearTime = setTimeout(function () {
-            console.log("completeFeaturedCourseFetch =>", featuredState)
-            featuredState.push(
-                {
-                    id: featuredState.length+1,
-                    slug: "course-" + featuredState.length+1,
-                    title: "Course " + featuredState.length+1,
-                    desc: "A great course",
-                    cover_image: "http://lorempixel.com/400/200/nature/"
-                    }
-            );
-            store.dispatch(completeFeaturedCourseFetch(featuredState));
-            console.log("ClearTimeOut: ", clearTime);
-            clearTimeout(clearTime);
-        }, 3000);
+    return {
+        type: 'FETCH_FEATURED_COURSE',
+        payload: new Promise((resolve, reject) => {
+            var clearTime = setTimeout(function () {
+                featuredState.push(
+                    {
+                        id: featuredState.length+1,
+                        slug: "course-" + featuredState.length+1,
+                        title: "Course " + featuredState.length+1,
+                        desc: "A great course",
+                        cover_image: "http://lorempixel.com/400/200/nature/"
+                        }
+                );
+                clearTimeout(clearTime);
+                resolve(featuredState);
+            }, 3000);  
+        })
     }
 };
 
@@ -89,6 +74,6 @@ var reducers = combineReducers({
 
 var store = createStore(reducers, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
-), applyMiddleware(thunk));
+), applyMiddleware(promise(),logger));
 
 export {store, fetchFeaturedCourse};
