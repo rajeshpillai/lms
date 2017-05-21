@@ -43,6 +43,25 @@ var courseReducer = (state = {isFetching: false}, action) => {
     }
 };
 
+var chapterReducer = (state = {isFetching: false}, action) => {
+    switch(action.type) {
+        case 'FETCH_CHAPTERS_PENDING':
+            return {
+                ...state,
+                isFetching: true,
+            };
+        case 'FETCH_CHAPTERS_FULFILLED':
+            return {
+                ...state,
+                isFetching: false,
+                courseChapters: action.payload.courseChapters
+            };
+
+        default:
+            return state;
+    }
+};
+
 var fetchFeaturedCourse = () => {
     console.log("fetchFeaturedCourse =>")
     return {
@@ -64,6 +83,22 @@ var fetchCourse = (course_id) => {
     return {
         type: 'FETCH_COURSE',
         payload: new Promise((resolve, reject) => {
+            axios.get("/chapters/:course_id/" + course_id)
+                .then(function (response) {
+                    resolve(response.data);
+                })
+                .catch(function (error) {
+
+                });
+        })
+    }
+};
+
+var fetchChapters = (course_id) => {
+    console.log("fetchChapters =>", course_id);
+    return {
+        type: 'FETCH_CHAPTERS',
+        payload: new Promise((resolve, reject) => {
             axios.get("/course/" + course_id)
                 .then(function (response) {
                     resolve(response.data);
@@ -77,11 +112,12 @@ var fetchCourse = (course_id) => {
 
 var reducers = combineReducers({
     featuredCourse: featuredCoursesReducer,
-    course: courseReducer
+    course: courseReducer,
+    chapters:chapterReducer 
 });
 
 var store = createStore(reducers, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ), applyMiddleware(promise(),logger));
 
-export {store, fetchFeaturedCourse, fetchCourse}; 
+export {store, fetchFeaturedCourse, fetchCourse, fetchChapters}; 

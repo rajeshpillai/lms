@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
-import CourseService from '../services/CourseService';
+import {connect} from 'react-redux';
+import {fetchChapters} from '../reducers/reducers';
+
 
 class ChapterBar extends Component {
   constructor(props){
@@ -11,20 +13,9 @@ class ChapterBar extends Component {
     }
   }
   componentDidMount() {
-      var course_id = 2;
-      var chapters = CourseService.getChapters(course_id);
-      // this.setState({
-      //     course_id: course_id,
-      //     chapters: chapters.chapters
-      // });
-
-      this.setState(function (prevState, props) {
-        console.log("PROPS: ", props);
-        return {
-          course_id: course_id,
-          chapters: chapters.chapters
-        }
-      });
+      if (!this.props.match) return;
+      var course_id =  this.props.match.params.course_id;
+      this.props.fetchChapters(course_id);
   }
 
  
@@ -70,4 +61,21 @@ class ChapterBar extends Component {
     );
   }
 }
-export default ChapterBar;
+
+function mapStateToProps(state){
+  console.log("mapStateToProps: ", state);
+  return {
+        courseChapters: state.courseChapters,
+        isFetching: state.isFetching
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchCourseChapters: (course_id) => {
+      dispatch(fetchCourseChapters(course_id));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChapterBar);
