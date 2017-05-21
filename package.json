@@ -6,7 +6,7 @@
   "scripts": {
     "run:dev": "npm-run-all --parallel start  build:dev:watch",
     "startw": "webpack-dev-server --inline --hot",
-    "start": "npm run build && nodemon server/index.js --watch ./public",
+    "start": "npm run build && nodemon server/server.js",
     "build": "webpack -p",
     "build:dev": "webpack -d",
     "build:dev:watch": "webpack -d --watch",

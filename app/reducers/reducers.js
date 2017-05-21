@@ -58,19 +58,6 @@ var fetchFeaturedCourse = () => {
                 .catch(function (error) {
 
                 });
-            // var clearTime = setTimeout(function () {
-            //     featuredState.push(
-            //         {
-            //             id: featuredState.length+1,
-            //             slug: "course-" + featuredState.length+1,
-            //             title: "Course " + featuredState.length+1,
-            //             desc: "A great course",
-            //             cover_image: "http://lorempixel.com/400/200/nature/"
-            //             }
-            //     );
-            //     clearTimeout(clearTime);
-            //     resolve(featuredState);
-            // }, 3000);  
         })
     }
 };
@@ -84,4 +71,4 @@ var store = createStore(reducers, compose(
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ), applyMiddleware(promise(),logger));
 
-export {store, fetchFeaturedCourse};
+export {store, fetchFeaturedCourse}; 
