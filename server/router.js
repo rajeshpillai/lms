@@ -2,6 +2,8 @@ var courseController = require("./controllers/course");
 
 module.exports = function (app) {
   app.get("/course/featured", courseController.getFeaturedCourse);
+  app.get("/course/:course_id", courseController.getCourseById);
+
   app.get('*', (req, res) => {
     console.log("from server: ");
     res.render('layout/index', {

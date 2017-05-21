@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
-import CourseService from '../services/CourseService';
+import  {fetchCourse} from '../reducers/reducers';
+import {connect} from 'react-redux';
+
 
 class CourseSummary extends Component {
   constructor(props) {
       super(props);
-      this.state = {
-          course: {
-          }
-      }
   }
 
   componentDidMount() {
-     var course = CourseService.getCourseById(this.props.match.params.course_id);
-     console.log(course);
-      this.setState({
-          course: course,
-          chapters: {
-              course_id: course.id
-          }
-      });
+     console.log("FETCHING: ", this.props.match.params.course_id);
+     this.props.fetchCourse(this.props.match.params.course_id);
+
   }
 
   render() {
+    var course = this.props.course.course;
+    console.log("CourseSummary: RENDER => ", this.props);
+    if (course == null) {
+        return <h3>Loading</h3>
+    }
     return (
         <div>
             <ul className="nav nav-tabs">
@@ -36,9 +34,9 @@ class CourseSummary extends Component {
                 <div id="vid" className="tab-pane fade in active">
                     <h3>HOME</h3>
                     <h2>Course title: {this.props.match.params.course_id}</h2>
-                    {this.state.course.desc}
+                    {course.desc}
                     <br/>
-                    <img src={this.state.course.cover_image} alt="cover image"/>
+                    <img src={course.cover_image} alt="cover image"/>
                 </div>
                 <div id="book" className="tab-pane fade">
                     <h3>Menu 1</h3>
@@ -57,4 +55,20 @@ class CourseSummary extends Component {
     );
   }
 }
-export default CourseSummary;
+
+function mapStateToProps(state){
+  console.log("mapStateToProps: ", state);
+  return {
+        course: state.course,
+        isFetching: state.isFetching
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchCourse: (course_id) => {
+      dispatch(fetchCourse(course_id));
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CourseSummary);

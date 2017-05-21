@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var path = require("path");
+var nodeExternals = require('webpack-node-externals');
 
 var BUILD_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'app');
@@ -21,7 +22,12 @@ var config = {
     devtool: '#source-map',
     module: {
         loaders: [
-            {test: /\.jsx?/, include: APP_DIR, loader: 'babel-loader'}
+            {
+                test: /\.jsx?/, 
+                include: APP_DIR, 
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+            }
         ]
     },
     plugins: [

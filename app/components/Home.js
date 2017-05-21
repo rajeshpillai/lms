@@ -6,20 +6,12 @@ import {connect} from 'react-redux';
 class Home extends Component {
   constructor(props) {
     super(props);
-
-    console.log("HOME:ctor =>");
-    this.state ={
-      featuredCourse: {
-        featuredCourse: [],
-        isFetching: true
-      },
-    };
     props.fetchFeaturedCourse();
   }
 
   render() {
+    console.log("Home: RENDER => ", this.props)  ;
     var state = this.props.featuredCourse;
-    console.log("RENDER: ", state);
     if (state.isFetching) {
       return <h3>Loading</h3>
     }
@@ -56,5 +48,5 @@ function mapDispatchToProps (dispatch) {
     }
   }
 }
-Home = connect(mapStateToProps, mapDispatchToProps)(Home);
-export default Home;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
