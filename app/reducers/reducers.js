@@ -83,7 +83,7 @@ var fetchCourse = (course_id) => {
     return {
         type: 'FETCH_COURSE',
         payload: new Promise((resolve, reject) => {
-            axios.get("/chapters/:course_id/" + course_id)
+            axios.get("/course/" + course_id)
                 .then(function (response) {
                     resolve(response.data);
                 })
@@ -99,7 +99,7 @@ var fetchChapters = (course_id) => {
     return {
         type: 'FETCH_CHAPTERS',
         payload: new Promise((resolve, reject) => {
-            axios.get("/course/" + course_id)
+            axios.get("/chapters/" + course_id)
                 .then(function (response) {
                     resolve(response.data);
                 })
