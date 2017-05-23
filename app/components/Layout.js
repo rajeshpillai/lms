@@ -23,9 +23,6 @@ class Layout extends Component {
           </nav>
           <div className="container-fluid"> 
               <div className="row">
-                <div className="col-md-2">
-                  <ChapterBar />
-                </div>
                 <div className="col-md-8 ">
                   <Route exact path="/" component={Home} />
                   <Route exact path="/about" component={AboutUs} />

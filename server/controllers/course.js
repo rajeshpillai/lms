@@ -26,6 +26,7 @@ var chapters = [
     { 
         course: {
             id: 1,
+            slug: 'course-1',
             chapters: [
                 {
                     id: 1,
@@ -74,7 +75,9 @@ exports.getChaptersByCourseId = function (req, res) {
 
     var courseChapters = chapters.filter((course) => {
         console.log(course.course.id);
-        if (course.course.id == course_id) return course;
+        if (course.course.slug == course_id) return course;
     });
+
+    console.log("courseChapters: ", courseChapters);
     res.json({courseChapters: courseChapters[0]});
 }

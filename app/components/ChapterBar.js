@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux';
-import {fetchChapters} from '../reducers/reducers';
 
 
 class ChapterBar extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      course_id: "",
-      chapters: []
-    }
+    this.course_id = location.pathname;
+    console.log("ChapterBar: ctor => ", location.pathname);
   }
-  componentDidMount() {
-      if (!this.props.match) return;
-      var course_id =  this.props.match.params.course_id;
-      this.props.fetchChapters(course_id);
-  }
-
  
   render() {
     var self = this;
-    var chps = this.state.chapters.map(function (chapter) {
+    console.log("ChapterBar: RENDER =>", this.props.chapters);
+    if (!this.props.chapters.courseChapters) {
+      return <p>No chapters published yet!</p>
+    }
+    var chps = this.props.chapters.courseChapters.course.chapters.map(function (chapter) {
       return (
         <div className="panel panel-default" key={`${chapter.id}`}>
           <div className="panel-heading">
@@ -33,7 +28,7 @@ class ChapterBar extends Component {
           <div id={`collapse${chapter.id}`} className="panel-collapse collapse in">
             <div className="panel-body">
               <ol>
-                {renderSections(self.state.course_id,chapter)}
+                {renderSections(self.course_id,chapter)}
               </ol>
             </div>
           </div>
@@ -55,27 +50,12 @@ class ChapterBar extends Component {
 
     return (
      <div className="panel-group chapter-bar" id="accordion">
-        <h2>{this.state.chapters.course_id}</h2>
+        <h2>{this.course_id}</h2>
         {chps}
       </div>
     );
   }
 }
 
-function mapStateToProps(state){
-  console.log("mapStateToProps: ", state);
-  return {
-        courseChapters: state.courseChapters,
-        isFetching: state.isFetching
-    }
-}
 
-function mapDispatchToProps (dispatch) {
-  return {
-    fetchCourseChapters: (course_id) => {
-      dispatch(fetchCourseChapters(course_id));
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChapterBar);
+export default ChapterBar;

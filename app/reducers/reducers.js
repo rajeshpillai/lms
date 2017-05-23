@@ -29,7 +29,7 @@ var courseReducer = (state = {isFetching: false}, action) => {
         case 'FETCH_COURSE_PENDING':
             return {
                 ...state,
-                isFetching: true,
+                isFetching: true
             };
         case 'FETCH_COURSE_FULFILLED':
             return {
@@ -43,7 +43,7 @@ var courseReducer = (state = {isFetching: false}, action) => {
     }
 };
 
-var chapterReducer = (state = {isFetching: false}, action) => {
+var chapterReducer = (state = {isFetching: false, chapters: []}, action) => {
     switch(action.type) {
         case 'FETCH_CHAPTERS_PENDING':
             return {
@@ -54,7 +54,7 @@ var chapterReducer = (state = {isFetching: false}, action) => {
             return {
                 ...state,
                 isFetching: false,
-                courseChapters: action.payload.courseChapters
+                chapters: action.payload
             };
 
         default:
